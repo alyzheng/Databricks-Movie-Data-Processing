@@ -40,21 +40,21 @@ In our case we will be using built in datasets that Databricks provides. We will
 
 1. Mount our delta file system to the cluster with the following code. 
     ```python
-try : 
-    dbutils.fs.mount(
-    source = f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
-    mount_point = mount_point,
-    extra_configs={
-      "fs.azure.account.key."+storage_account_name+".blob.core.windows.net": storage_account_access_key
-    }
-  )
-    print("Storage Mounted.")
-except Exception as e:
-    if "Directory already mounted" in str(e):
-        pass # Ignore error if already mounted.
-    else:
-        raise e
-print("Success.")
+    try : 
+        dbutils.fs.mount(
+        source = f"wasbs://{container_name}@{storage_account_name}.blob.core.windows.net",
+        mount_point = mount_point,
+        extra_configs={
+          "fs.azure.account.key."+storage_account_name+".blob.core.windows.net": storage_account_access_key
+        }
+      )
+        print("Storage Mounted.")
+    except Exception as e:
+        if "Directory already mounted" in str(e):
+            pass # Ignore error if already mounted.
+        else:
+            raise e
+    print("Success.")
     ```
 
 Next we will set up our [landing to bronze process], in Delta Lake fashion we will implement a batch process and a stream process.  
