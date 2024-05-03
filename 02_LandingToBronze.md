@@ -3,7 +3,7 @@
 In this section, we will process raw data and convert into three tables: movie, genre and original language.
 
 
-## Stream Data 
+## Create movie dataframe
 
 1. Create a [`02_LandingToBronze`] notebook.
 
@@ -50,6 +50,7 @@ In this section, we will process raw data and convert into three tables: movie, 
     combined_df_movie = combined_df_movie.withColumn("status", when(rank().over(windowSpec) == 1, "new").otherwise("loaded"))
     ```
 
+## Create genre dataframe
 6. Now we need to create genre dataframe 
     ```python
     combined_df_genres = combined_df.select(col("movie.genres").alias("genres"))
@@ -59,6 +60,8 @@ In this section, we will process raw data and convert into three tables: movie, 
     col("genres.name").alias("name")
     )
     ```
+
+## Create language dataframe
 7. Next we need to create language dataframe
     ```python
     combined_df_language = combined_df.select(col("movie.OriginalLanguage").alias("OriginalLanguage"))
